@@ -1,0 +1,24 @@
+name: "List active variants"
+description: "Dynamically determines current Bottlerocket variants based on repo contents."
+inputs:
+  filter-variants:
+    description: "Filter the variant list based on whether the modified files affect them."
+    required: false
+    default: false
+  token:
+    description: "GitHub auth token to use for querying API. Only needed if filter-variants = true"
+    required: false
+outputs:
+  variants:
+    description: A list of all variants defined in the repo
+    value: ${{ steps.get-variants.outputs.variants }}
+  aarch-enemies:
+    description: Variants that should not run for aarch64
+    value: ${{ steps.get-variants.outputs.aarch-enemies }}
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        python3 -m pip install requests
+        python3 run.py
+      shell: bash
