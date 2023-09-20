@@ -20,5 +20,5 @@ runs:
   steps:
     - run: |
         python3 -m pip install requests
-        python3 run.py
+        python3 ${{ github.action_path }}/run.py
       shell: bash
