@@ -19,6 +19,15 @@ runs:
   using: "composite"
   steps:
     - run: |
-        python3 -m pip install requests
-        python3 ${{ github.action_path }}/run.py ${{ inputs.filter-variants }} ${{ inputs.token }}
+        cd ${{ github.action_path }}
+        python3 -m pip install --user -r requirements.txt
+        python3 ./run.py ${{ inputs.filter-variants }} ${{ inputs.token }}
+        cat output.env
+        source output.env
+        echo "variants=${variants}"
+        echo "variants=${variants@Q}" >> $GITHUB_OUTPUT
+        echo "aarch-enemies=${aarch_enemies}"
+        echo "aarch-enemies=${aarch_enemies@Q}" >> $GITHUB_OUTPUT
+        echo "GitHub output:"
+        cat "${GITHUB_OUTPUT}"
       shell: bash
