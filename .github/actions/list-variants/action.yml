@@ -22,3 +22,6 @@ runs:
         python3 -m pip install requests
         python3 ${{ github.action_path }}/run.py
       shell: bash
+branding:
+  icon: list
+  color: blue
